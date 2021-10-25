@@ -1,0 +1,68 @@
+﻿@using MovieRentalAppUI.Services
+@inject IMovieRentalService SignInManager
+
+@model IEnumerable<MovieRentalAppUI.Models.MovieModel>
+
+@{
+    ViewData["Title"] = "Rent Netfliix";
+}
+
+<h1>Index</h1>
+
+@if (SignInManager.IsLoggedIn())
+{
+<p>
+    <a asp-action="Upsert" asp-controller="Movies" class="btn btn-info form-control text-white">
+        Add New Movie
+    </a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsRented)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentalDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRented)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentalDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Upsert", new { id= item.Id }) |
+                @if(!item.IsRented)
+                {
+                @Html.ActionLink("Delete", "Delete", new { id= item.Id })
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

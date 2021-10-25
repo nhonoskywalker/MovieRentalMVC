@@ -1,0 +1,24 @@
+﻿@using MovieRentalAppUI.Services
+@inject IMovieRentalService SignInManager
+<ul class="navbar-nav">
+    @if (SignInManager.IsLoggedIn())
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Movies/Index" title="Manage">Hello @SignInManager.GetUser()! </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Movies" asp-action="Logout" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Movies/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/Movies/Login">Login</a>
+        </li>
+    }
+</ul>
